@@ -8,15 +8,35 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    private var gridItemLayout: [GridItem] = [
+        GridItem(.flexible(), spacing: 0),
+        GridItem(.flexible(), spacing: 0),
+        GridItem(.flexible(), spacing: 0)
+    ]
+    
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        LazyVGrid(columns: gridItemLayout, spacing: 10){
+            ForEach((0...8), id: \.self){
+                grid in
+                Button(action: {
+                    print(grid)
+                }){
+                    Rectangle().fill(randomColor())
+                        .frame(width: 100, height: 100, alignment: .center)
+                            .cornerRadius(15)
+                            .padding()
+                }
+            }
         }
-        .padding()
     }
+}
+
+func randomColor() -> Color {
+    var colorRand = [Color.red, Color.blue, Color.green, Color.yellow, Color.orange, Color.purple, Color.pink]
+    
+    return colorRand.randomElement() ?? Color.blue
 }
 
 #Preview {
