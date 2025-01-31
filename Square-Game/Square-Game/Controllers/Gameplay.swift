@@ -1,40 +1,34 @@
+// Gameplay.swift
+// Square-Game
+///
+//  Created by Gimantha 044 on 2025-01-26.
+
 import SwiftUI
 
-struct ContentView: View {
+struct Gameplay: View {
     let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    
-    // List of possible colors
     let colors: [Color] = [.red, .green, .blue, .yellow, .purple, .orange, .pink, .black]
     
-    // State variables
-    @State private var buttonColors: [Color] = Array(repeating: .clear, count: 9) // Placeholder colors
+    @State private var buttonColors: [Color] = Array(repeating: .clear, count: 9)
     @State private var firstSelection: (index: Int, color: Color)? = nil
-    @State private var isDisabled: Bool = true // Buttons are initially disabled
-    @State private var timeRemaining: Int = 90 // Timer starts at 90 seconds
-    @State private var isGameRunning: Bool = false // Tracks if the game is running
+    @State private var isDisabled: Bool = true
+    @State private var timeRemaining: Int = 60
+    @State private var isGameRunning: Bool = false
     
-    // Timer
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
-        VStack {
-            Text("The Square Game")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .padding(.top, 20)
-            
-            // Display the timer
-            if isGameRunning {
+
+        NavigationView {
+            VStack {
                 Text("Time Remaining: \(timeRemaining) seconds")
                     .font(.headline)
                     .padding(.bottom, 20)
-            }
-            
-            ScrollView {
+                
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(0..<9, id: \.self) { index in
                         Button(action: {
@@ -45,23 +39,11 @@ struct ContentView: View {
                                 .frame(width: 80, height: 80)
                                 .cornerRadius(10)
                         }
-                        .disabled(isDisabled) // Disable interaction if the game isn't running
+                        .disabled(isDisabled)
                     }
                 }
                 .padding()
-            }
-            
-            // Display the start button if the game isn't running
-            if !isGameRunning {
-                Button("Start") {
-                    startGame()
-                }
-                .padding()
-                .font(.title)
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-            }
+            }.onAppear(perform: startGame)
         }
         .padding()
         .onAppear(perform: resetGame) // Reset the game when the view appears
@@ -70,7 +52,7 @@ struct ContentView: View {
         }
     }
     
-    // Start the game
+    //    Start the game
     func startGame() {
         assignRandomColors() // Assign colors to the buttons
         isGameRunning = true // Mark the game as running
@@ -124,7 +106,7 @@ struct ContentView: View {
     
     // Handle button tap
     func handleButtonTap(at index: Int) {
-        guard let selectedColor = buttonColors[safe: index] else { return }
+        let selectedColor = buttonColors[index]
         
         // Prevent the same button from being clicked twice
         if let first = firstSelection, first.index == index {
@@ -144,18 +126,5 @@ struct ContentView: View {
             // First button selected
             firstSelection = (index: index, color: selectedColor)
         }
-    }
-}
-
-// Safe index accessor to avoid crashes
-extension Collection {
-    subscript(safe index: Index) -> Element? {
-        return indices.contains(index) ? self[index] : nil
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
