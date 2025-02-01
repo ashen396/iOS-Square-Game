@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ContentView: View {
+struct Homepage: View {
     var body: some View{
         NavigationView {
             VStack{
@@ -9,7 +9,7 @@ struct ContentView: View {
                     .fontWeight(.bold)
                     .padding(.top, -100)
                 
-                NavigationLink(destination: Gameplay()){
+                NavigationLink(destination: LevelSelector()){
                     Text("Start")
                         .font(.title2)
                         .padding(.horizontal, 70)
@@ -20,22 +20,22 @@ struct ContentView: View {
                 }
                 
                 NavigationLink(destination: Gameplay()){
+                    Text("Guidelines")
+                        .font(.title2)
+                        .padding(.horizontal, 42)
+                        .padding(.vertical, 8)
+                        .foregroundStyle(.white)
+                        .background(.green)
+                        .cornerRadius(8)
+                }
+                
+                NavigationLink(destination: Gameplay()){
                     Text("High Score")
                         .font(.title2)
                         .padding(.horizontal, 40)
                         .padding(.vertical, 8)
                         .foregroundStyle(.white)
                         .background(.orange)
-                        .cornerRadius(8)
-                }
-                
-                NavigationLink(destination: Gameplay()){
-                    Text("Guidelines")
-                        .font(.title2)
-                        .padding(.horizontal, 42)
-                        .padding(.vertical, 8)
-                        .foregroundStyle(.white)
-                        .background(.blue)
                         .cornerRadius(8)
                 }
                 
@@ -53,8 +53,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct Homepage_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Homepage()
     }
 }

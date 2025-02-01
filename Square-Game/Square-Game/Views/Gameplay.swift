@@ -6,6 +6,8 @@
 import SwiftUI
 
 struct Gameplay: View {
+    
+    var level: Int = 0
     let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -16,13 +18,12 @@ struct Gameplay: View {
     @State private var buttonColors: [Color] = Array(repeating: .clear, count: 9)
     @State private var firstSelection: (index: Int, color: Color)? = nil
     @State private var isDisabled: Bool = true
-    @State private var timeRemaining: Int = 60
+    @State private var timeRemaining: Int = 30
     @State private var isGameRunning: Bool = false
     
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
-
         NavigationView {
             VStack {
                 Text("Time Remaining: \(timeRemaining) seconds")
@@ -57,7 +58,7 @@ struct Gameplay: View {
         assignRandomColors() // Assign colors to the buttons
         isGameRunning = true // Mark the game as running
         isDisabled = false // Enable the buttons
-        timeRemaining = 90 // Reset the timer to 90 seconds
+        timeRemaining = GameplayViewModel().returnTimeout(gamelevel: level)
     }
     
     // Reset the game
@@ -126,5 +127,11 @@ struct Gameplay: View {
             // First button selected
             firstSelection = (index: index, color: selectedColor)
         }
+    }
+}
+
+struct  Gampelay_Previews: PreviewProvider{
+    static var previews: some View{
+        Gameplay()
     }
 }
