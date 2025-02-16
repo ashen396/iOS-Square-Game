@@ -36,24 +36,35 @@ class GameplayViewModel: ObservableObject{
         }
     }
     
-//    func returnGrid(gamelevel: Int = 0) -> [GridItem]{
-////            let columns: [GridItem] = [
-////                GridItem(.flexible()),
-////                GridItem(.flexible()),
-////                GridItem(.flexible())
-////            ]
-//        
-//        
-////                let gridSize: Int = GameplayViewModel().returnGridSize(gamelevel: level)
-////                let columns : [GridItem] = []
-////                let columnSize = Float(gridSize).squareRoot()
-////        let columns = GameplayViewModel().returnGridSize(gamelevel: level, gridSize: 2)
-//        
-//        var columns: [GridItem] = []
-//        
+    func returnGrid(gamelevel: Int = 0) -> [GridItem]{
+//            let columns: [GridItem] = [
+//                GridItem(.flexible()),
+//                GridItem(.flexible()),
+//                GridItem(.flexible())
+//            ]
+        
+        
+//                let gridSize: Int = GameplayViewModel().returnGridSize(gamelevel: level)
+//                let columns : [GridItem] = []
+//                let columnSize = Float(gridSize).squareRoot()
+//        let columns = GameplayViewModel().returnGridSize(gamelevel: level, gridSize: 2)
+        
+        var columns: [GridItem] = []
+
+        for _ in 0..<10{
+            columns.append(GridItem(.flexible()))
+        }
+        
 //        ForEach(0..<9, id: \.self){
 //            index in columns.append(GridItem(.flexible()))
 //        }
-//        return columns
-//    }
+        
+//        for _ in 0..<9 {
+////            let grid = GridItem(.flexible())
+////            columns.append(grid)
+//            
+//            columns.append(GridItem())
+//        }
+        return columns
+    }
 }

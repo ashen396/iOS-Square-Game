@@ -8,11 +8,11 @@ import SwiftUI
 struct Gameplay: View {
     
     var level: Int = 0
-    let columns: [GridItem] = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+//    let columns: [GridItem] = [
+//        GridItem(.flexible()),
+//        GridItem(.flexible()),
+//        GridItem(.flexible())
+//    ]
     let colors: [Color] = [.red, .green, .blue, .yellow, .purple, .orange, .pink, .black]
     
     @State private var buttonColors: [Color] = Array(repeating: .clear, count: 9)
@@ -30,6 +30,7 @@ struct Gameplay: View {
                     .font(.headline)
                     .padding(.bottom, 20)
                 
+                let columns = GameplayViewModel().returnGrid()
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(0..<9, id: \.self) { index in
                         Button(action: {
